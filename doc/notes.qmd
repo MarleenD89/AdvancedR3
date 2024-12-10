@@ -1,0 +1,9 @@
+---
+title: "notes"
+format: html
+editor: visual
+---
+
+## declaring dependencies as the first step to make course reproducible (automatic notes on which versions of packages are used).
+
+
