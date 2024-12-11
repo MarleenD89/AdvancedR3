@@ -69,6 +69,11 @@ list(
     name = fig_metabolite_distribution,
   command = plot_distributions(lipidomics)
   ),
+  tar_target(
+      name = pdf_fig_file,
+      command = ggplot2::ggsave(here::here("doc/pdf_fig_file.pdf"), fig_metabolite_distribution),
+      format = "file"
+  ),
 tar_quarto(
     name = quarto_doc,
     path = "doc/learning.qmd"
