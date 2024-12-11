@@ -1,3 +1,9 @@
+#' Title: descriptive stats for dataframes
+#'
+#' @param a dataframe
+#'
+#' @return "A data.frame/tibble" (output)
+#'
 descriptive_stats <- function(data) {
     data %>%
         dplyr::group_by(metabolite) %>%
