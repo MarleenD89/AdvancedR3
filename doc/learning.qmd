@@ -10,6 +10,7 @@ targets::tar_config_set(store = here::here("_targets"))
 # to show Quarto that it needs to find the Targets file in a different folder (then /doc)
 library(tidyverse)
 library(targets)
+library(tidymodels)
 source(here::here("R/functions.R"))
 lipidomics <- tar_read(lipidomics)
 ```
@@ -24,5 +25,6 @@ select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
 ```
 
 ```{r}
-tar_read(fig_metabolite_distribution)
+tar_read(fig_metabolite_distribution) +
+    ggprism::theme_prism()
 ```
