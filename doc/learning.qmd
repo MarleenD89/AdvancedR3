@@ -18,13 +18,39 @@ lipidomics <- tar_read(lipidomics)
 ## Results
 
 ```{r}
-tar_read(df_stats_by_metabolite) %>% 
-    mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>% 
-select(Metabolite = metabolite, `Mean SD` = MeanSD) %>% 
-    knitr::kable(caption = "Descriptive statistics of the metabolites")
+tar_read(df_stats_by_metabolite) %>%
+  mutate(MeanSD = glue::glue("{value_mean} ({value_sd})")) %>%
+  select(Metabolite = metabolite, `Mean SD` = MeanSD) %>%
+  knitr::kable(caption = "Descriptive statistics of the metabolites")
 ```
 
 ```{r}
 tar_read(fig_metabolite_distribution) +
-    ggprism::theme_prism()
+  ggprism::theme_prism()
+```
+
+## Building the model
+
+```{r}
+log_reg_specs <- logistic_reg() %>%
+  set_engine("glm")
+
+log_reg_specs
+```
+
+```{r}
+lipidomics_wide <- lipidomics %>%
+  column_values_to_snake_case(metabolite) %>%
+  metabolites_to_wider(metabolite)
+```
+
+```{r}
+recipe_specs <- lipidomics_wide %>% create_recipe_spec(
+    metabolite_cholesterol)
+
+recipe_specs
+```
+
+```{r}
+
 ```
