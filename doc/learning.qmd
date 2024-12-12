@@ -34,7 +34,7 @@ tar_read(fig_metabolite_distribution) +
 ```{r}
 lipidomics_wide <- lipidomics %>%
   column_values_to_snake_case(metabolite) %>%
-  metabolites_to_wider(metabolite)
+  metabolites_to_wider()
 
 lipidomics_wide
 ```
@@ -43,20 +43,7 @@ lipidomics_wide
 
 ```{r}
 
-lipidomics %>% calculate_estimates()
+model_estimates <- lipidomics %>% calculate_estimates()
 
-```
-
-## Fixing metabolite names
-
-```{r}
-lipidomics %>% 
-    select(metabolite) %>% 
-    mutate(term = metabolite) %>% 
-    column_values_to_snake_case(term) %>% 
-    mutate(term = str_c("metabolite_", term)) %>% 
-    distinct(metabolite, term) %>% 
-    right_join(model_estimates, by = "term")
-
-
+model_estimates
 ```
