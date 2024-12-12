@@ -42,8 +42,12 @@ lipidomics_wide
 ## Running multiple models
 
 ```{r}
+model_estimates <- tar_read(df_model_estimates)
+```
 
-model_estimates <- lipidomics %>% calculate_estimates()
+## Visualizing the model estimates
 
-model_estimates
+```{r}
+tar_read(fig_model_estimates) +
+  ggprism::theme_prism()
 ```

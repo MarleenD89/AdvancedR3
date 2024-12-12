@@ -130,5 +130,22 @@ calculate_estimates <- function(data) {
     column_values_to_snake_case(term) %>%
     dplyr::mutate(term = stringr::str_c("metabolite_", term)) %>%
     dplyr::distinct(metabolite, term) %>%
-    dplyr::right_join(model_estimates, by = "term")
+    dplyr::right_join(model_estimates, by = "term") %>%
+    base::subset(, -c(2))
+}
+
+
+#' Title: Plot the estimates and standard errors of the model results.
+#' @param results The model estimate results.
+#' @return A ggplot2 figure.
+plot_estimates <- function(results) {
+  results %>%
+    ggplot2::ggplot(ggplot2::aes(
+      x = estimate,
+      y = metabolite,
+      xmin = estimate - std.error,
+      xmax = estimate + std.error
+    )) +
+    ggplot2::geom_pointrange() +
+    ggplot2::coord_fixed(xlim = c(0, 5))
 }
